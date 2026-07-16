@@ -13,117 +13,184 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
     <title>Sim Rs - Data Alat</title>
     <style>
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 20px; 
-            background-color: #f7fbfb; /* Latar belakang soft tosca sangat muda */
-            color: #333;
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 40px 20px;
+            background-color: #fffbef; /* Latar belakang kuning pastel soft */
+            color: #334155;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(230, 180, 0, 0.06);
+            border: 1px solid #fcf0cc;
         }
 
         h2 {
-            color: #1abc9c; /* Hijau Tosca Utama */
+            color: #0d9488; /* Hijau Tosca Utama */
             margin-top: 0;
-            border-bottom: 2px solid #f1c40f; /* Garis bawah Kuning Soft */
-            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* Pembungkus Kontrol Aksi atas (Tambah & Cari) */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .btn-tambah {
-            background-color: #1abc9c; /* Hijau Tosca */
+            background-color: #14b8a6; /* Hijau Tosca */
             color: white; 
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none; 
-            border-radius: 20px; /* Membuat tombol lonjong/feminim */
-            display: inline-block; 
-            margin-bottom: 20px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(26, 188, 156, 0.3);
+            border-radius: 10px; 
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
         }
         
         .btn-tambah:hover {
-            background-color: #16a085; /* Tosca lebih gelap saat di-hover */
-            transform: translateY(-2px);
+            background-color: #0f766e;
+            transform: translateY(-1px);
+        }
+
+        /* Desain Kolom Input Pencarian */
+        .search-container {
+            position: relative;
+        }
+
+        .input-cari {
+            width: 250px;
+            padding: 11px 16px 11px 40px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        .input-cari:focus {
+            border-color: #14b8a6;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+        }
+
+        /* Ikon Kaca Pembesar Simpel */
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+        }
+
+        /* Desain Tabel Menarik */
+        .table-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e2e8f0;
         }
 
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            margin-top: 10px;
-            border-radius: 8px;
-            overflow: hidden;
         }
         
         th { 
-            background-color: #1abc9c; /* Hijau Tosca untuk Header Tabel */
-            color: white; 
-            padding: 12px 15px; 
+            background-color: #e6fffa; /* Background Tosca soft */
+            color: #0d9488; /* Teks Tosca Gelap */
+            padding: 16px; 
             text-align: left; 
             font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid #14b8a6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         td { 
-            padding: 12px 15px; 
-            border-bottom: 1px solid #e8f6f5; 
+            padding: 16px; 
+            border-bottom: 1px solid #f1f5f9; 
+            font-size: 14px;
+            color: #475569;
         }
         
-        /* Baris selang-seling menggunakan warna Kuning Soft dan Tosas Muda */
+        /* Baris selang-seling Kuning Lemon Pastel */
         tr:nth-child(even) { 
-            background-color: #fffde7; /* Sentuhan warna Kuning Soft */
+            background-color: #fefce8; 
         }
-        tr:nth-child(odd) { 
-            background-color: #ffffff; 
-        }
+        
         tr:hover {
-            background-color: #e8f8f5; /* Efek hover Tosca lembut */
+            background-color: #f0fdfa; /* Hover efek tosca air */
         }
 
         .btn-aksi { 
             text-decoration: none; 
-            padding: 5px 12px; 
+            padding: 6px 14px; 
             color: white; 
-            border-radius: 15px; 
-            font-size: 13px;
-            font-weight: bold;
+            border-radius: 8px; 
+            font-size: 12px;
+            font-weight: 600;
             display: inline-block;
+            margin-right: 5px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-aksi:hover {
+            opacity: 0.9;
         }
         
         .btn-edit { 
-            background-color: #f1c40f; /* Kuning Aksen */
-            color: #333; 
-        }
-        .btn-edit:hover {
-            background-color: #f39c12;
+            background-color: #eab308; /* Kuning Amber modern */
         }
         
         .btn-delete { 
-            background-color: #e74c3c; 
-        }
-        .btn-delete:hover {
-            background-color: #c0392b;
+            background-color: #ef4444; /* Merah soft */
         }
 
-        /* Gaya Khusus untuk Nama & NIM di bagian bawah */
+        /* Pesan jika pencarian tidak ditemukan */
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #94a3b8;
+            display: none;
+            font-style: italic;
+        }
+
+        /* Footer Identitas Minimalis */
         .footer-identity {
-            margin-top: 40px;
-            padding: 15px;
-            background-color: #e8f6f5; /* Background Tosca Muda */
-            border-left: 5px solid #f1c40f; /* Border samping Kuning */
-            border-radius: 4px;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px dashed #e2e8f0;
             text-align: center;
         }
-        .footer-identity p {
-            margin: 5px 0;
-            font-weight: bold;
-            color: #16a085;
-            letter-spacing: 1px;
+        
+        .nama-mhs {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+        
+        .nim-mhs {
+            font-size: 13px;
+            color: #64748b;
+            margin: 4px 0 0 0;
         }
     </style>
 </head>
@@ -132,42 +199,91 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
     <div class="container">
         <h2>Daftar Data Alat</h2>
         
-        <!-- Tombol menuju halaman tambah data -->
-        <a href="add.php" class="btn-tambah">+ Tambah Alat Baru</a>
-
-        <table>
-            <tr>
-                <th>Nama Alat</th>
-                <th>Tahun</th>
-                <th>Merek</th>
-                <th>Lokasi</th>
-                <th>Aksi</th>
-            </tr>
+        <div class="action-bar">
+            <!-- Tombol Tambah Data -->
+            <a href="add.php" class="btn-tambah">+ Tambah Alat Baru</a>
             
-            <?php  
-            // Menampilkan data menggunakan perulangan while
-            while($user_data = mysqli_fetch_array($result)) {         
-                echo "<tr>";
-                echo "<td>".$user_data['nama_alat']."</td>";
-                echo "<td>".$user_data['tahun']."</td>";
-                echo "<td>".$user_data['merek']."</td>";
-                echo "<td>".$user_data['lokasi']."</td>";    
-                echo "<td>
-                        <a href='edit.php?id=$user_data[id]' class='btn-aksi btn-edit'>Edit</a> 
-                        <a href='delete.php?id=$user_data[id]' class='btn-aksi btn-delete' onclick='return confirm(\"Yakin ingin menghapus?\")'>Delete</a>
-                      </td>";
-                echo "</tr>";        
-            }
-            ?>
-        </table>
+            <!-- Kolom Pencarian -->
+            <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="inputCari" class="input-cari" onkeyup="cariData()" placeholder="Cari nama alat / lokasi...">
+            </div>
+        </div>
 
-        <!-- Identitas Pembuat Aplikasi -->
+        <div class="table-wrapper">
+            <table id="tabelAlat">
+                <thead>
+                    <tr>
+                        <th>Nama Alat</th>
+                        <th>Tahun</th>
+                        <th>Merek</th>
+                        <th>Lokasi</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  
+                    while($user_data = mysqli_fetch_array($result)) {         
+                        echo "<tr>";
+                        echo "<td>".$user_data['nama_alat']."</td>";
+                        echo "<td>".$user_data['tahun']."</td>";
+                        echo "<td>".$user_data['merek']."</td>";
+                        echo "<td>".$user_data['lokasi']."</td>";    
+                        echo "<td>
+                                <a href='edit.php?id=$user_data[id]' class='btn-aksi btn-edit'>Edit</a> 
+                                <a href='delete.php?id=$user_data[id]' class='btn-aksi btn-delete' onclick='return confirm(\"Yakin ingin menghapus?\")'>Delete</a>
+                              </td>";
+                        echo "</tr>";        
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <div id="pesanKosong" class="no-data">Data alat tidak ditemukan...</div>
+        </div>
+
+        <!-- Footer Identitas Minimalis -->
         <div class="footer-identity">
-            <p>Dibuat Oleh:</p>
-            <p style="font-size: 18px; color: #2c3e50;">IKA PUSPITA SARI</p>
-            <p style="font-size: 14px; color: #7f8c8d;">NIM: 2202505045</p>
+            <p class="nama-mhs">IKA PUSPITA SARI</p>
+            <p class="nim-mhs">NIM: 2202505045</p>
         </div>
     </div>
+
+    <!-- Script JavaScript untuk Fungsi Pencarian Real-time yang Sudah Diperbaiki -->
+    <script>
+    function cariData() {
+        let input = document.getElementById("inputCari").value.toLowerCase();
+        let table = document.getElementById("tabelAlat");
+        let tr = table.getElementsByTagName("tr");
+        let pesanKosong = document.getElementById("pesanKosong");
+        let adaData = false;
+
+        // Loop melalui semua baris tabel (lewati baris header index 0)
+        for (let i = 1; i < tr.length; i++) {
+            let tdNama = tr[i].getElementsByTagName("td")[0];
+            let tdLokasi = tr[i].getElementsByTagName("td")[3];
+            
+            if (tdNama || tdLokasi) {
+                let teksNama = (tdNama.textContent || tdNama.innerText).toLowerCase();
+                let teksLokasi = (tdLokasi.textContent || tdLokasi.innerText).toLowerCase();
+                
+                // Cek apakah input ada di dalam kolom Nama Alat ATAU Lokasi
+                if (teksNama.indexOf(input) > -1 || teksLokasi.indexOf(input) > -1) {
+                    tr[i].style.display = "";
+                    adaData = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        // Tampilkan pesan jika data tidak ada yang cocok sama sekali
+        if (!adaData && input !== "") {
+            pesanKosong.style.display = "block";
+        } else {
+            pesanKosong.style.display = "none";
+        }
+    }
+    </script>
 
 </body>
 </html>
