@@ -16,7 +16,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             font-family: 'Segoe UI', Arial, sans-serif; 
             margin: 0; 
             padding: 40px 20px;
-            background-color: #fffbef; /* Latar belakang kuning pastel soft */
+            background-color: #fffdf5; /* Kuning gading sangat lembut */
             color: #334155;
         }
         
@@ -26,16 +26,50 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             background: #ffffff;
             padding: 35px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(230, 180, 0, 0.06);
-            border: 1px solid #fcf0cc;
+            box-shadow: 0 10px 40px rgba(13, 148, 136, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Simbol Hati Medis Cantik di Kanan Atas */
+        .alkes-badge {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #0d9488; /* Tosca Medis */
+            background-color: #e6fffa;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.1);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0;
+            margin-bottom: 5px;
         }
 
         h2 {
-            color: #0d9488; /* Hijau Tosca Utama */
-            margin-top: 0;
-            margin-bottom: 25px;
+            color: #0d9488; /* Hijau Tosca Medis Utama */
+            margin: 0;
             font-size: 26px;
             font-weight: 700;
+        }
+
+        .sub-title {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 30px;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         /* Pembungkus Kontrol Aksi atas (Tambah & Cari) */
@@ -49,7 +83,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
         }
 
         .btn-tambah {
-            background-color: #14b8a6; /* Hijau Tosca */
+            background-color: #0d9488; /* Hijau Tosca */
             color: white; 
             padding: 12px 24px;
             text-decoration: none; 
@@ -57,7 +91,10 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             font-weight: 600;
             font-size: 14px;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn-tambah:hover {
@@ -82,12 +119,12 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
         }
 
         .input-cari:focus {
-            border-color: #14b8a6;
+            border-color: #0d9488;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
         }
 
-        /* Ikon Kaca Pembesar Simpel */
+        /* Ikon Kaca Pembesar */
         .search-icon {
             position: absolute;
             left: 14px;
@@ -97,12 +134,12 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             pointer-events: none;
         }
 
-        /* Desain Tabel Menarik */
+        /* Desain Tabel Bernuansa Toska Menarik */
         .table-wrapper {
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+            border: 1px solid #ccfbf1;
         }
 
         table { 
@@ -111,13 +148,13 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
         }
         
         th { 
-            background-color: #e6fffa; /* Background Tosca soft */
-            color: #0d9488; /* Teks Tosca Gelap */
+            background-color: #ccfbf1; /* Latar Toska Cerah Medis */
+            color: #0f766e; /* Teks Tosca Tua */
             padding: 16px; 
             text-align: left; 
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
-            border-bottom: 2px solid #14b8a6;
+            border-bottom: 3px solid #0d9488; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -126,16 +163,16 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             padding: 16px; 
             border-bottom: 1px solid #f1f5f9; 
             font-size: 14px;
-            color: #475569;
+            color: #334155;
         }
         
-        /* Baris selang-seling Kuning Lemon Pastel */
+        /* Baris selang-seling bernuansa bersih & tosca lembut */
         tr:nth-child(even) { 
-            background-color: #fefce8; 
+            background-color: #f0fdfa; /* Tosca air super soft */
         }
         
         tr:hover {
-            background-color: #f0fdfa; /* Hover efek tosca air */
+            background-color: #e6fffa; 
         }
 
         .btn-aksi { 
@@ -171,7 +208,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             font-style: italic;
         }
 
-        /* Footer Identitas Minimalis */
+        /* Footer Identitas */
         .footer-identity {
             margin-top: 50px;
             padding-top: 25px;
@@ -197,11 +234,30 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
 <body>
 
     <div class="container">
-        <h2>Daftar Data Alat</h2>
+        
+        <!-- Logo Hati Medis (Heart & Cross) Terkini -->
+        <div class="alkes-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Struktur Bentuk Hati -->
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                <!-- Palang Medis di Dalam Hati -->
+                <path d="M12 9v4M10 11h4" />
+            </svg>
+        </div>
+
+        <div class="header-title">
+            <h2>Daftar Data Alat</h2>
+        </div>
+        <div class="sub-title">
+            <span>Sistem Manajemen Inventaris Alat Kesehatan (Alkes)</span>
+        </div>
         
         <div class="action-bar">
             <!-- Tombol Tambah Data -->
-            <a href="add.php" class="btn-tambah">+ Tambah Alat Baru</a>
+            <a href="add.php" class="btn-tambah">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Tambah Alat Baru
+            </a>
             
             <!-- Kolom Pencarian -->
             <div class="search-container">
@@ -248,7 +304,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
         </div>
     </div>
 
-    <!-- Script JavaScript untuk Fungsi Pencarian Real-time yang Sudah Diperbaiki -->
+    <!-- Script JavaScript untuk Fungsi Pencarian Real-time -->
     <script>
     function cariData() {
         let input = document.getElementById("inputCari").value.toLowerCase();
@@ -257,7 +313,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
         let pesanKosong = document.getElementById("pesanKosong");
         let adaData = false;
 
-        // Loop melalui semua baris tabel (lewati baris header index 0)
         for (let i = 1; i < tr.length; i++) {
             let tdNama = tr[i].getElementsByTagName("td")[0];
             let tdLokasi = tr[i].getElementsByTagName("td")[3];
@@ -266,7 +321,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
                 let teksNama = (tdNama.textContent || tdNama.innerText).toLowerCase();
                 let teksLokasi = (tdLokasi.textContent || tdLokasi.innerText).toLowerCase();
                 
-                // Cek apakah input ada di dalam kolom Nama Alat ATAU Lokasi
                 if (teksNama.indexOf(input) > -1 || teksLokasi.indexOf(input) > -1) {
                     tr[i].style.display = "";
                     adaData = true;
@@ -276,7 +330,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM alat ORDER BY id DESC");
             }
         }
 
-        // Tampilkan pesan jika data tidak ada yang cocok sama sekali
         if (!adaData && input !== "") {
             pesanKosong.style.display = "block";
         } else {
